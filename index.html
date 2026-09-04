@@ -9,7 +9,7 @@
 </style>
 </head>
 <body><main>
-<header><div class="badge">Texas Tech University • Applied Personal Finance</div><h1>PFI 3301: Introduction to Personal Finance TVM Calculator</h1><p class="muted">PV • FV • PMT • Interest Rate • Number of Periods</p><p class="help"><strong>Instructional release:</strong> Version 1.0 • September 2026</p></header>
+<header><div class="badge">Texas Tech University • Applied Personal Finance</div><h1>PFI 3301: Introduction to Personal Finance TVM Calculator</h1><p class="muted">PV • FV • PMT • I/Y • NPER </p><p class="help"><strong>Instructional release:</strong> Version 1.0 • September 2026</p></header>
 <div class="notice"><strong>Educational use only:</strong> This calculator is provided for use in PFI 3301 and related instructional activities at Texas Tech University. It is designed to support learning of time value of money concepts and financial decision-making. It does not provide individualized financial, investment, tax, accounting, legal, credit, lending, insurance, or other professional advice. Do not rely on calculator results as the sole basis for an actual financial or legal decision. Students are responsible for identifying the correct variables, assumptions, cash-flow directions, timing, and interpretation.</div>
 <section class="card"><div class="grid g2"><label>What are you solving for?<select id="solve"><option value="">Select a variable...</option><option value="fv">Future Value (FV)</option><option value="pv">Present Value (PV)</option><option value="pmt">Periodic Payment (PMT)</option><option value="rate">Interest Rate</option><option value="nper">Number of Periods</option></select></label><div><label>Problem guidance</label><div id="solveHelp" class="notice" style="margin-top:5px">Choose the variable you want to solve for.</div></div></div></section>
 <section class="card"><h2>Cash Flows</h2><div class="grid g3">
@@ -24,6 +24,262 @@
 <label>Payment Timing<select id="timing"><option value="">Select...</option><option value="0">END • end of period</option><option value="1">BEGIN • beginning of period</option></select></label>
 </div><p class="help"><strong>BEGIN:</strong> first recurring payment happens today. <strong>END:</strong> first recurring payment happens one payment period from today.</p><div class="actions"><button id="calc" class="primary" type="button">Calculate</button><button id="clear" class="secondary" type="button">Clear All</button></div><div id="message" class="error" role="alert" aria-live="polite"></div></section>
 <section id="results" class="card hidden" aria-live="polite"><div class="muted">Answer</div><div id="answer" class="answer"></div><div id="direction" class="muted"></div><div class="notice" style="margin-top:14px"><strong>What this means</strong><div id="meaning" style="margin-top:4px"></div></div><h3>Calculation Setup</h3><div id="details" class="metrics"></div><details style="margin-top:14px"><summary><strong>Excel and BA II Plus equivalent setup</strong></summary><div id="equiv" style="margin-top:10px"></div></details></section>
+  <section class="card">
+  <details>
+    <summary>TVM Foundations &amp; How the Variables Work Together</summary>
+
+    <div style="margin-top: 12px;">
+
+      <h3>What Is Time Value of Money?</h3>
+
+      <p>
+        Time value of money is the principle that the value of money depends on
+        when it is received or paid. A dollar today is generally not equivalent
+        to a dollar received in the future because money available today can be
+        saved, invested, or used to avoid borrowing costs.
+      </p>
+
+      <p>
+        TVM allows us to compare cash flows that occur at different points in
+        time by recognizing the effects of interest, return, and the passage of
+        time.
+      </p>
+
+      <h3>The Five Core TVM Variables</h3>
+
+      <p>
+        Most TVM problems describe the relationship among five variables:
+        present value, future value, periodic payment, interest rate, and number
+        of periods. A change in one variable generally changes one or more of the
+        others.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Present Value (PV):</strong> the value of a cash flow or
+          financial position at the beginning of the analysis.
+        </li>
+        <li>
+          <strong>Future Value (FV):</strong> the value of that money or series
+          of cash flows at a later point in time.
+        </li>
+        <li>
+          <strong>Periodic Payment (PMT):</strong> a repeating contribution,
+          payment, or withdrawal that occurs during the time horizon.
+        </li>
+        <li>
+          <strong>Interest Rate:</strong> the rate at which money grows, or the
+          cost associated with using money over time.
+        </li>
+        <li>
+          <strong>Number of Periods (N):</strong> the amount of time available,
+          expressed in the same type of periods used for the recurring cash flows.
+        </li>
+      </ul>
+
+      <h3>TVM Is About Relationships, Not Just Formulas</h3>
+
+      <p>
+        The variables in a TVM problem are connected. Holding everything else
+        constant, changing one variable changes the financial outcome.
+      </p>
+
+      <h4>More Time Usually Increases Future Value</h4>
+
+      <p>
+        When money earns a positive return, a longer time horizon generally
+        allows more compounding to occur. This means the same present value or
+        recurring payment can grow to a larger future value.
+      </p>
+
+      <p>
+        If the future goal is fixed, having more time to reach it generally
+        reduces the amount that must be contributed each period.
+      </p>
+
+      <h4>A Higher Rate Increases Growth Over Time</h4>
+
+      <p>
+        When the interest or return rate is higher, money grows faster.
+        Holding the starting amount, payments, and time constant, a higher rate
+        generally produces a larger future value.
+      </p>
+
+      <p>
+        If the future goal is fixed, a higher assumed return generally reduces
+        the present value or recurring contribution required to reach that goal.
+      </p>
+
+      <h4>Larger Contributions Increase Future Value</h4>
+
+      <p>
+        Holding the interest rate and time horizon constant, larger recurring
+        contributions generally produce a larger future value.
+      </p>
+
+      <p>
+        If the future goal is fixed, increasing the recurring contribution
+        generally reduces the amount of time needed to reach the goal.
+      </p>
+
+      <h4>A Larger Starting Amount Reduces the Burden on Future Contributions</h4>
+
+      <p>
+        A larger present value gives more money an opportunity to compound from
+        the beginning of the time horizon. As a result, a larger starting amount
+        can reduce the recurring payments needed to reach a future goal.
+      </p>
+
+      <h3>Compounding Creates Growth on Prior Growth</h3>
+
+      <p>
+        Compounding means that interest or investment growth can be earned not
+        only on the original amount, but also on growth accumulated in earlier
+        periods.
+      </p>
+
+      <p>
+        Because of compounding, the relationship between time and future value is
+        not simply linear. The effect of additional time becomes increasingly
+        important as growth accumulates.
+      </p>
+
+      <h3>Timing of Payments Matters</h3>
+
+      <p>
+        Two sets of payments can have the same dollar amount and the same number
+        of payments but produce different results if the payments occur at
+        different times.
+      </p>
+
+      <p>
+        A payment made earlier has more time to earn interest or investment
+        returns than the same payment made later.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Beginning-of-period payments:</strong> payments occur earlier
+          and therefore generally accumulate more value when the interest rate
+          is positive.
+        </li>
+        <li>
+          <strong>End-of-period payments:</strong> payments occur later and
+          therefore have slightly less time to compound.
+        </li>
+      </ul>
+
+      <h3>Payment Frequency and Compounding Frequency Are Different Ideas</h3>
+
+      <p>
+        Payment frequency describes how often money is contributed, paid, or
+        withdrawn. Compounding frequency describes how often interest is added to
+        the balance.
+      </p>
+
+      <p>
+        They may be the same, but they do not have to be. For example, an account
+        may compound interest daily while deposits are made monthly.
+      </p>
+
+      <p>
+        More frequent compounding generally increases the effective return when
+        the stated annual rate remains the same.
+      </p>
+
+      <h3>Cash-Flow Direction Matters</h3>
+
+      <p>
+        TVM problems often involve money moving in opposite directions.
+      </p>
+
+      <ul>
+        <li>
+          With a <strong>loan</strong>, you receive money today and make payments
+          later.
+        </li>
+        <li>
+          With <strong>savings</strong>, you contribute money now or over time
+          and receive the accumulated value later.
+        </li>
+        <li>
+          With a <strong>retirement withdrawal</strong>, you may begin with an
+          accumulated balance and receive recurring payments from it over time.
+        </li>
+      </ul>
+
+      <p>
+        This is why financial calculators distinguish between cash inflows and
+        cash outflows.
+      </p>
+
+      <h3>Common Cause-and-Effect Relationships</h3>
+
+      <p>
+        Holding other variables constant:
+      </p>
+
+      <ul>
+        <li><strong>More time:</strong> generally produces a higher future value.</li>
+        <li><strong>Higher positive interest rate:</strong> generally produces a higher future value.</li>
+        <li><strong>Larger present value:</strong> generally produces a higher future value.</li>
+        <li><strong>Larger recurring contribution:</strong> generally produces a higher future value.</li>
+        <li><strong>More time to reach a fixed goal:</strong> generally reduces the required periodic payment.</li>
+        <li><strong>Higher return to reach a fixed goal:</strong> generally reduces the required present value or periodic payment.</li>
+        <li><strong>Higher future goal:</strong> generally increases the required present value or periodic payment.</li>
+        <li><strong>Earlier payments:</strong> generally provide more time for each payment to compound.</li>
+      </ul>
+
+      <p>
+        These relationships assume the other TVM variables remain unchanged.
+      </p>
+
+      <h3>TVM Is Useful for Financial Decisions</h3>
+
+      <p>
+        TVM helps answer questions such as:
+      </p>
+
+      <ul>
+        <li>How much could money invested today grow in the future?</li>
+        <li>How much must I save regularly to reach a financial goal?</li>
+        <li>How much is a future amount worth today?</li>
+        <li>How long might it take to reach a savings goal?</li>
+        <li>What return would be required to reach a particular future value?</li>
+        <li>What recurring payment is associated with borrowing a certain amount?</li>
+      </ul>
+
+      <h3>References</h3>
+
+      <p>
+        Microsoft Support. <em>FV function.</em><br>
+        https://support.microsoft.com/en-US/Excel/functions/fv-function
+      </p>
+
+      <p>
+        Microsoft Support. <em>PV function.</em><br>
+        https://support.microsoft.com/en-US/Excel/functions/pv-function
+      </p>
+
+      <p>
+        Microsoft Support. <em>PMT function.</em><br>
+        https://support.microsoft.com/en-US/Excel/functions/pmt-function
+      </p>
+
+      <p>
+        Microsoft Support. <em>NPER function.</em><br>
+        https://support.microsoft.com/en-US/Excel/functions/nper-function
+      </p>
+
+      <p>
+        Texas Instruments. <em>BA II Plus Guidebook and Time Value of Money
+        Worksheet documentation.</em><br>
+        https://education.ti.com/
+      </p>
+
+    </div>
+  </details>
+</section>
   <section class="card">
   <details>
     <summary>Mathematical Foundation &amp; Calculation Method</summary>
