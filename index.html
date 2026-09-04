@@ -1,225 +1,669 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>PFI 3301: Introduction to Personal Finance | Texas Tech University | TVM Calculator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PFI 3301 TVM Calculator</title>
+<meta name="description" content="Educational time value of money calculator for PFI 3301.">
 <style>
-:root{--red:#b91c1c;--text:#1f2937;--muted:#6b7280;--border:#d1d5db;--panel:#f8fafc}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff;line-height:1.45}main{max-width:980px;margin:auto;padding:16px}header{border-bottom:4px solid var(--red);padding-bottom:14px;margin-bottom:18px}h1{margin:.2rem 0;font-size:clamp(1.7rem,4vw,2.3rem)}h2{font-size:1.15rem;margin:.2rem 0 1rem}.muted,.help{color:var(--muted)}.help{font-size:.85rem}.card{border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0}.notice{background:var(--panel);border-left:4px solid var(--red);padding:12px;border-radius:8px}.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}label{font-weight:700;font-size:.95rem;display:block}input,select,button{font:inherit;min-height:46px;border-radius:8px;border:1px solid var(--border)}input,select{width:100%;padding:10px 12px;background:#fff;margin-top:5px}input:disabled,select:disabled{background:#f3f4f6;color:#6b7280}button{padding:10px 18px;font-weight:700;cursor:pointer}.primary{background:var(--red);color:#fff;border-color:var(--red)}.secondary{background:#fff}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.error{color:#b91c1c;font-weight:700;margin-top:10px}.hidden{display:none}.answer{font-size:1.85rem;font-weight:800}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--border);border-radius:8px;padding:10px}.k{font-size:.78rem;color:var(--muted)}.v{font-weight:700}.badge{display:inline-block;background:#f3f4f6;padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:700}ul{padding-left:1.25rem}li{margin:.55rem 0}footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:20px}@media(max-width:700px){.g2,.g3,.metrics{grid-template-columns:1fr}.actions button{width:100%}}
+:root{
+  --bg:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#d1d5db;
+  --panel:#f8fafc;
+  --accent:#b91c1c;
+  --accent-dark:#991b1b;
+  --focus:#2563eb;
+  --error:#b91c1c;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:16px;
+}
+header{
+  padding:8px 0 16px;
+  border-bottom:4px solid var(--accent);
+  margin-bottom:20px;
+}
+h1{
+  font-size:clamp(1.7rem,4vw,2.35rem);
+  margin:0 0 4px;
+}
+h2{
+  font-size:1.25rem;
+  margin:0 0 12px;
+}
+h3{
+  font-size:1.05rem;
+  margin:18px 0 8px;
+}
+p{margin:8px 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.45rem 0}
+.subtitle{
+  color:var(--muted);
+  margin:0;
+}
+.card{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:16px 0;
+  background:#fff;
+}
+.notice{
+  background:var(--panel);
+  border-left:4px solid var(--accent);
+  padding:12px;
+  border-radius:8px;
+}
+.grid{
+  display:grid;
+  gap:14px;
+}
+.grid-2{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.grid-3{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+label{
+  display:block;
+  font-weight:700;
+  font-size:.95rem;
+}
+.help{
+  font-weight:400;
+  color:var(--muted);
+  font-size:.86rem;
+  margin-top:4px;
+}
+input,select,button{
+  width:100%;
+  font:inherit;
+  min-height:46px;
+  border-radius:8px;
+  border:1px solid var(--border);
+}
+input,select{
+  padding:10px 12px;
+  background:#fff;
+  color:var(--text);
+  margin-top:5px;
+}
+input:focus,select:focus,button:focus,summary:focus{
+  outline:3px solid rgba(37,99,235,.25);
+  outline-offset:2px;
+}
+input:disabled,select:disabled{
+  background:#f3f4f6;
+  color:#6b7280;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+button{
+  width:auto;
+  padding:10px 18px;
+  font-weight:700;
+  cursor:pointer;
+}
+.primary{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.primary:hover{background:var(--accent-dark)}
+.secondary{
+  background:#fff;
+  color:var(--text);
+}
+.error{
+  color:var(--error);
+  font-weight:700;
+  margin-top:12px;
+}
+.result{
+  font-size:1.8rem;
+  font-weight:800;
+  margin:4px 0;
+}
+.small{
+  font-size:.88rem;
+  color:var(--muted);
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.metric{
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px;
+  background:#fff;
+}
+.metric .k{
+  font-size:.78rem;
+  color:var(--muted);
+}
+.metric .v{
+  font-weight:700;
+  margin-top:2px;
+  word-break:break-word;
+}
+.hidden{display:none!important}
+details{
+  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px;
+  background:#fff;
+}
+summary{
+  cursor:pointer;
+  font-weight:700;
+  font-size:1rem;
+}
+details .details-content{
+  margin-top:12px;
+}
+code{
+  background:#f3f4f6;
+  border-radius:4px;
+  padding:1px 4px;
+}
+.formula{
+  text-align:center;
+  font-weight:700;
+  padding:8px 0;
+}
+.badge{
+  display:inline-block;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#f3f4f6;
+  font-size:.75rem;
+  font-weight:700;
+  color:#374151;
+}
+footer{
+  font-size:.82rem;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  padding-top:12px;
+  margin-top:20px;
+}
+@media(max-width:700px){
+  main{padding:12px}
+  .grid-2,.grid-3,.result-grid{grid-template-columns:1fr}
+  .actions button{width:100%}
+}
 </style>
 </head>
-<body><main>
-<header><div class="badge">Texas Tech University • Applied Personal Finance</div><h1>PFI 3301: Introduction to Personal Finance TVM Calculator</h1><p class="muted">PV • FV • PMT • I/Y • NPER </p><p class="help"><strong>Instructional release:</strong> Version 1.0 • September 2026</p></header>
-<div class="notice"><strong>Educational use only:</strong> This calculator is provided for use in PFI 3301 and related instructional activities at Texas Tech University. It is designed to support learning of time value of money concepts and financial decision-making. It does not provide individualized financial, investment, tax, accounting, legal, credit, lending, insurance, or other professional advice. Do not rely on calculator results as the sole basis for an actual financial or legal decision. Students are responsible for identifying the correct variables, assumptions, cash-flow directions, timing, and interpretation.</div>
-<section class="card"><div class="grid g2"><label>What are you solving for?<select id="solve"><option value="">Select a variable...</option><option value="fv">Future Value (FV)</option><option value="pv">Present Value (PV)</option><option value="pmt">Periodic Payment (PMT)</option><option value="rate">Interest Rate</option><option value="nper">Number of Periods</option></select></label><div><label>Problem guidance</label><div id="solveHelp" class="notice" style="margin-top:5px">Choose the variable you want to solve for.</div></div></div></section>
-<section class="card"><h2>Cash Flows</h2><div class="grid g3">
-  <div class="notice">
-<div><label>Present Value (PV)<input id="pv" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount"></label><label class="help">Direction<select id="pvDir"><option value="">Select direction...</option><option value="-1">Money I Pay / Invest</option><option value="1">Money I Receive</option></select></label></div>
-<div><label>Future Value (FV)<input id="fv" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount"></label><label class="help">Direction<select id="fvDir"><option value="">Select direction...</option><option value="-1">Money I Pay / Invest</option><option value="1">Money I Receive</option></select></label></div>
-<div><label>Periodic Payment (PMT)<input id="pmt" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount"></label><label class="help">Direction<select id="pmtDir"><option value="">Select direction...</option><option value="-1">Money I Pay / Invest</option><option value="1">Money I Receive</option></select></label></div>
-</div><p class="help"><strong>Cash-flow convention:</strong> money received is positive; money paid or invested is negative. The calculator applies signs internally.</p></section>
-<section class="card"><h2>Rate and Time</h2><div class="grid g2"><label>Annual Interest Rate (%)<input id="rate" inputmode="decimal" type="number" min="0" step="0.001" placeholder="Enter rate"></label><label>Years<input id="years" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter years"></label></div></section>
-<section class="card"><h2>Frequency and Timing</h2><div class="grid g3">
-<label>Compounding Frequency<select id="comp"><option value="">Select...</option><option value="1">Annual</option><option value="2">Semiannual</option><option value="4">Quarterly</option><option value="12">Monthly</option><option value="26">Biweekly</option><option value="52">Weekly</option><option value="365">Daily (365/year)</option></select></label>
-<label>Payment Frequency<select id="pay"><option value="">Select...</option><option value="1">Annual</option><option value="2">Semiannual</option><option value="4">Quarterly</option><option value="12">Monthly</option><option value="26">Biweekly</option><option value="52">Weekly</option></select></label>
-<label>Payment Timing<select id="timing"><option value="">Select...</option><option value="0">END • end of period</option><option value="1">BEGIN • beginning of period</option></select></label>
-</div><p class="help"><strong>BEGIN:</strong> first recurring payment happens today. <strong>END:</strong> first recurring payment happens one payment period from today.</p><div class="actions"><button id="calc" class="primary" type="button">Calculate</button><button id="clear" class="secondary" type="button">Clear All</button></div><div id="message" class="error" role="alert" aria-live="polite"></div></section>
-<section id="results" class="card hidden" aria-live="polite"><div class="muted">Answer</div><div id="answer" class="answer"></div><div id="direction" class="muted"></div><div class="notice" style="margin-top:14px"><strong>What this means</strong><div id="meaning" style="margin-top:4px"></div></div><h3>Calculation Setup</h3><div id="details" class="metrics"></div><details style="margin-top:14px"><summary><strong>Excel and BA II Plus equivalent setup</strong></summary><div id="equiv" style="margin-top:10px"></div></details></section>
-  <section class="card">
+
+<body>
+<main>
+
+<header>
+  <div class="badge">Texas Tech University • Personal Financial Planning</div>
+  <h1>PFI 3301 TVM Calculator</h1>
+  <p class="subtitle">Present Value • Future Value • Payment • Interest Rate • Number of Periods</p>
+  <p class="help"><strong>Instructional release:</strong> Version 1.0 • September 2026</p>
+</header>
+
+<div class="notice">
+  <strong>Educational use only:</strong>
+  This calculator is provided for use in PFI 3301 and related instructional activities.
+  It is designed to support learning of time value of money concepts and financial decision-making.
+  It does not provide individualized financial, investment, tax, accounting, legal, credit, lending,
+  insurance, or other professional advice. Students are responsible for identifying the correct
+  variables, assumptions, cash-flow directions, timing, and interpretation.
+</div>
+
+<section class="card">
+  <div class="grid grid-2">
+    <label>What are you solving for?
+      <select id="solve">
+        <option value="">Select a variable...</option>
+        <option value="fv">Future Value (FV)</option>
+        <option value="pv">Present Value (PV)</option>
+        <option value="pmt">Periodic Payment (PMT)</option>
+        <option value="rate">Interest Rate</option>
+        <option value="nper">Number of Periods</option>
+      </select>
+    </label>
+
+    <div>
+      <label>Problem guidance</label>
+      <div id="solveHelp" class="notice" style="margin-top:5px">
+        Choose the variable you want to solve for.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="notice" style="margin:16px 0;">
+  <strong>Cash-Flow Entry:</strong>
+  Enter PV, FV, and PMT as positive dollar amounts. Do not enter negative signs.
+  Instead, select <strong>Money I Receive</strong> or
+  <strong>Money I Pay / Invest</strong> for each nonzero cash flow.
+</div>
+
+<section class="card">
+  <h2>Cash Flows</h2>
+
+  <div class="grid grid-3">
+    <div>
+      <label>Present Value (PV)
+        <input id="pv" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount">
+      </label>
+      <label class="help">Direction
+        <select id="pvDir">
+          <option value="">Select direction...</option>
+          <option value="-1">Money I Pay / Invest</option>
+          <option value="1">Money I Receive</option>
+        </select>
+      </label>
+    </div>
+
+    <div>
+      <label>Future Value (FV)
+        <input id="fv" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount">
+      </label>
+      <label class="help">Direction
+        <select id="fvDir">
+          <option value="">Select direction...</option>
+          <option value="-1">Money I Pay / Invest</option>
+          <option value="1">Money I Receive</option>
+        </select>
+      </label>
+    </div>
+
+    <div>
+      <label>Periodic Payment (PMT)
+        <input id="pmt" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter amount">
+      </label>
+      <label class="help">Direction
+        <select id="pmtDir">
+          <option value="">Select direction...</option>
+          <option value="-1">Money I Pay / Invest</option>
+          <option value="1">Money I Receive</option>
+        </select>
+      </label>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Rate and Time</h2>
+
+  <div class="grid grid-2">
+    <label>Annual Interest Rate (%)
+      <input id="rate" inputmode="decimal" type="number" min="0" step="0.001" placeholder="Enter rate">
+    </label>
+
+    <label>Years
+      <input id="years" inputmode="decimal" type="number" min="0" step="0.01" placeholder="Enter years">
+    </label>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Frequency and Timing</h2>
+
+  <div class="grid grid-3">
+    <label>Compounding Frequency
+      <select id="comp">
+        <option value="">Select...</option>
+        <option value="1">Annual</option>
+        <option value="2">Semiannual</option>
+        <option value="4">Quarterly</option>
+        <option value="12">Monthly</option>
+        <option value="26">Biweekly</option>
+        <option value="52">Weekly</option>
+        <option value="365">Daily (365/year)</option>
+      </select>
+    </label>
+
+    <label>Payment Frequency
+      <select id="pay">
+        <option value="">Select...</option>
+        <option value="1">Annual</option>
+        <option value="2">Semiannual</option>
+        <option value="4">Quarterly</option>
+        <option value="12">Monthly</option>
+        <option value="26">Biweekly</option>
+        <option value="52">Weekly</option>
+      </select>
+    </label>
+
+    <label>Payment Timing
+      <select id="timing">
+        <option value="">Select...</option>
+        <option value="0">END • end of period</option>
+        <option value="1">BEGIN • beginning of period</option>
+      </select>
+    </label>
+  </div>
+
+  <p class="small">
+    <strong>BEGIN:</strong> recurring payments occur at the beginning of each payment period.
+    <strong>END:</strong> recurring payments occur at the end of each payment period.
+  </p>
+
+  <div class="actions">
+    <button id="calc" class="primary" type="button">Calculate</button>
+    <button id="clear" class="secondary" type="button">Clear All</button>
+  </div>
+
+  <div id="message" class="error" role="alert" aria-live="polite"></div>
+</section>
+
+<section id="results" class="card hidden" aria-live="polite">
+  <div class="small">Answer</div>
+  <div id="answer" class="result"></div>
+  <div id="direction" class="small"></div>
+
+  <div class="notice" style="margin-top:14px;">
+    <strong>What this means</strong>
+    <div id="meaning" style="margin-top:4px;"></div>
+  </div>
+
+  <h3>Calculation Setup</h3>
+  <div id="details" class="result-grid"></div>
+
+  <details>
+    <summary>Excel and BA II Plus Equivalent Setup</summary>
+    <div id="equiv" class="details-content"></div>
+  </details>
+</section>
+
+<section class="card">
+  <details>
+    <summary>How to Use This Calculator</summary>
+
+    <div class="details-content">
+
+      <h3>1. Choose What You Are Solving For</h3>
+      <p>
+        Select the TVM variable you want the calculator to solve:
+        present value, future value, periodic payment, interest rate,
+        or number of periods.
+      </p>
+      <p>
+        The selected variable becomes the unknown. Enter the remaining
+        information from the problem.
+      </p>
+
+      <h3>2. Enter the Known Cash Flows</h3>
+      <p>
+        Enter the dollar amount for each known cash flow:
+      </p>
+      <ul>
+        <li><strong>PV:</strong> present value</li>
+        <li><strong>FV:</strong> future value</li>
+        <li><strong>PMT:</strong> recurring payment</li>
+      </ul>
+      <p>
+        Enter all dollar amounts as positive numbers.
+        <strong>Do not type a negative sign into the amount field.</strong>
+      </p>
+      <p>
+        If a known TVM variable is zero, enter <strong>0</strong>.
+      </p>
+
+      <h3>3. Identify the Direction of Each Cash Flow</h3>
+      <p>
+        For each nonzero PV, FV, or PMT amount, use the cash-flow direction menu to identify whether the amount is:
+      </p>
+      <ul>
+        <li><strong>Money I Receive</strong></li>
+        <li><strong>Money I Pay / Invest</strong></li>
+      </ul>
+      <p>
+        The calculator applies the appropriate positive or negative sign internally.
+        You should not enter the negative sign yourself.
+      </p>
+      <p>
+        For example, if you invest $5,000 today, enter <strong>5000</strong>
+        for PV and select <strong>Money I Pay / Invest</strong>.
+        Do not enter <strong>-5000</strong>.
+      </p>
+      <p>
+        If you borrow $20,000 today, enter <strong>20000</strong>
+        for PV and select <strong>Money I Receive</strong>.
+      </p>
+      <p>
+        If a cash flow is zero, no cash-flow direction is needed for that amount.
+      </p>
+
+      <h3>4. Enter the Annual Interest Rate</h3>
+      <p>
+        Enter the stated annual interest rate as a percentage.
+      </p>
+      <p>
+        For example, enter <strong>6</strong> for a 6% annual interest rate.
+      </p>
+      <p>
+        If interest rate is the variable being solved for, the calculator will determine the rate from the other information you enter.
+      </p>
+
+      <h3>5. Enter the Time Horizon</h3>
+      <p>
+        Enter the number of years in the problem.
+      </p>
+      <p>
+        The calculator converts years into the appropriate number of payment periods based on the payment frequency you select.
+      </p>
+      <p>
+        If number of periods is the variable being solved for, the calculator will determine the number of payment periods and report the equivalent number of years.
+      </p>
+
+      <h3>6. Select Compounding Frequency</h3>
+      <p>
+        Choose how often interest is compounded.
+      </p>
+      <p>
+        Available options include annual, semiannual, quarterly, monthly, biweekly, weekly, and daily compounding.
+      </p>
+
+      <h3>7. Select Payment Frequency</h3>
+      <p>
+        Choose how often recurring payments, contributions, or withdrawals occur.
+      </p>
+      <p>
+        Payment frequency and compounding frequency may be the same, but they do not have to be.
+      </p>
+      <p>
+        For example, an account could compound interest daily while deposits are made monthly.
+      </p>
+
+      <h3>8. Select Payment Timing</h3>
+      <p>
+        Choose when recurring payments occur:
+      </p>
+      <ul>
+        <li><strong>END:</strong> payments occur at the end of each payment period.</li>
+        <li><strong>BEGIN:</strong> payments occur at the beginning of each payment period.</li>
+      </ul>
+      <p>
+        A useful question is: <strong>When does the first recurring payment occur?</strong>
+      </p>
+      <p>
+        If it occurs today, choose BEGIN. If it occurs one payment period from today, choose END.
+      </p>
+
+      <h3>9. Calculate and Review the Result</h3>
+      <p>
+        Select <strong>Calculate</strong> to solve the problem.
+      </p>
+      <p>
+        Review both the numerical answer and the explanation provided below it.
+        The calculation setup also shows the rate per payment period, total number of periods,
+        payment timing, compounding frequency, payment frequency, and cash-flow directions used.
+      </p>
+
+      <h3>10. Check Whether the Answer Makes Sense</h3>
+      <p>
+        Before accepting the result, consider whether it is reasonable in the context of the financial problem.
+      </p>
+      <ul>
+        <li>Does the cash-flow direction of the answer make sense?</li>
+        <li>Does the size of the answer seem reasonable?</li>
+        <li>Would more time change the answer in the direction you would expect?</li>
+        <li>Would a higher interest rate change the answer in the direction you would expect?</li>
+        <li>Did you choose the correct payment and compounding frequencies?</li>
+        <li>Did you choose the correct BEGIN or END timing?</li>
+      </ul>
+
+      <h3>Clear the Calculator</h3>
+      <p>
+        Select <strong>Clear All</strong> to remove all entered values and selections before beginning a new problem.
+      </p>
+
+      <h3>Important Reminder</h3>
+      <p>
+        This calculator performs the arithmetic, but you are responsible for correctly interpreting the problem,
+        identifying the appropriate variables and cash-flow directions, selecting the correct timing and frequency assumptions,
+        and evaluating whether the result makes financial sense.
+      </p>
+
+    </div>
+  </details>
+</section>
+
+<section class="card">
   <details>
     <summary>TVM Foundations &amp; How the Variables Work Together</summary>
 
-    <div style="margin-top: 12px;">
+    <div class="details-content">
 
       <h3>What Is Time Value of Money?</h3>
-
       <p>
-        Time value of money is the principle that the value of money depends on
-        when it is received or paid. A dollar today is generally not equivalent
-        to a dollar received in the future because money available today can be
-        saved, invested, or used to avoid borrowing costs.
+        Time value of money is the principle that the value of money depends on when it is received or paid.
+        A dollar today is generally not equivalent to a dollar received in the future because money available today
+        can be saved, invested, or used to avoid borrowing costs.
       </p>
-
       <p>
-        TVM allows us to compare cash flows that occur at different points in
-        time by recognizing the effects of interest, return, and the passage of
-        time.
+        TVM allows us to compare cash flows that occur at different points in time by recognizing the effects of
+        interest, return, and the passage of time.
       </p>
 
       <h3>The Five Core TVM Variables</h3>
-
       <p>
         Most TVM problems describe the relationship among five variables:
-        present value, future value, periodic payment, interest rate, and number
-        of periods. A change in one variable generally changes one or more of the
-        others.
+        present value, future value, periodic payment, interest rate, and number of periods.
+        A change in one variable generally changes one or more of the others.
       </p>
-
       <ul>
-        <li>
-          <strong>Present Value (PV):</strong> the value of a cash flow or
-          financial position at the beginning of the analysis.
-        </li>
-        <li>
-          <strong>Future Value (FV):</strong> the value of that money or series
-          of cash flows at a later point in time.
-        </li>
-        <li>
-          <strong>Periodic Payment (PMT):</strong> a repeating contribution,
-          payment, or withdrawal that occurs during the time horizon.
-        </li>
-        <li>
-          <strong>Interest Rate:</strong> the rate at which money grows, or the
-          cost associated with using money over time.
-        </li>
-        <li>
-          <strong>Number of Periods (N):</strong> the amount of time available,
-          expressed in the same type of periods used for the recurring cash flows.
-        </li>
+        <li><strong>Present Value (PV):</strong> the value of a cash flow or financial position at the beginning of the analysis.</li>
+        <li><strong>Future Value (FV):</strong> the value of that money or series of cash flows at a later point in time.</li>
+        <li><strong>Periodic Payment (PMT):</strong> a repeating contribution, payment, or withdrawal that occurs during the time horizon.</li>
+        <li><strong>Interest Rate:</strong> the rate at which money grows, or the cost associated with using money over time.</li>
+        <li><strong>Number of Periods (N):</strong> the amount of time available, expressed in the same type of periods used for the recurring cash flows.</li>
       </ul>
 
       <h3>TVM Is About Relationships, Not Just Formulas</h3>
-
       <p>
-        The variables in a TVM problem are connected. Holding everything else
-        constant, changing one variable changes the financial outcome.
+        The variables in a TVM problem are connected. Holding everything else constant, changing one variable changes the financial outcome.
       </p>
 
-      <h4>More Time Usually Increases Future Value</h4>
-
+      <h3>More Time Usually Increases Future Value</h3>
       <p>
-        When money earns a positive return, a longer time horizon generally
-        allows more compounding to occur. This means the same present value or
-        recurring payment can grow to a larger future value.
+        When money earns a positive return, a longer time horizon generally allows more compounding to occur.
+        This means the same present value or recurring payment can grow to a larger future value.
+      </p>
+      <p>
+        If the future goal is fixed, having more time to reach it generally reduces the amount that must be contributed each period.
       </p>
 
-      <p>
-        If the future goal is fixed, having more time to reach it generally
-        reduces the amount that must be contributed each period.
-      </p>
-
-      <h4>A Higher Rate Increases Growth Over Time</h4>
-
+      <h3>A Higher Rate Increases Growth Over Time</h3>
       <p>
         When the interest or return rate is higher, money grows faster.
-        Holding the starting amount, payments, and time constant, a higher rate
-        generally produces a larger future value.
+        Holding the starting amount, payments, and time constant, a higher rate generally produces a larger future value.
+      </p>
+      <p>
+        If the future goal is fixed, a higher assumed return generally reduces the present value or recurring contribution required to reach that goal.
       </p>
 
+      <h3>Larger Contributions Increase Future Value</h3>
       <p>
-        If the future goal is fixed, a higher assumed return generally reduces
-        the present value or recurring contribution required to reach that goal.
+        Holding the interest rate and time horizon constant, larger recurring contributions generally produce a larger future value.
+      </p>
+      <p>
+        If the future goal is fixed, increasing the recurring contribution generally reduces the amount of time needed to reach the goal.
       </p>
 
-      <h4>Larger Contributions Increase Future Value</h4>
-
+      <h3>A Larger Starting Amount Reduces the Burden on Future Contributions</h3>
       <p>
-        Holding the interest rate and time horizon constant, larger recurring
-        contributions generally produce a larger future value.
-      </p>
-
-      <p>
-        If the future goal is fixed, increasing the recurring contribution
-        generally reduces the amount of time needed to reach the goal.
-      </p>
-
-      <h4>A Larger Starting Amount Reduces the Burden on Future Contributions</h4>
-
-      <p>
-        A larger present value gives more money an opportunity to compound from
-        the beginning of the time horizon. As a result, a larger starting amount
-        can reduce the recurring payments needed to reach a future goal.
+        A larger present value gives more money an opportunity to compound from the beginning of the time horizon.
+        As a result, a larger starting amount can reduce the recurring payments needed to reach a future goal.
       </p>
 
       <h3>Compounding Creates Growth on Prior Growth</h3>
-
       <p>
-        Compounding means that interest or investment growth can be earned not
-        only on the original amount, but also on growth accumulated in earlier
-        periods.
+        Compounding means that interest or investment growth can be earned not only on the original amount,
+        but also on growth accumulated in earlier periods.
       </p>
-
       <p>
-        Because of compounding, the relationship between time and future value is
-        not simply linear. The effect of additional time becomes increasingly
-        important as growth accumulates.
+        Because of compounding, the relationship between time and future value is not simply linear.
+        The effect of additional time becomes increasingly important as growth accumulates.
       </p>
 
       <h3>Timing of Payments Matters</h3>
-
       <p>
-        Two sets of payments can have the same dollar amount and the same number
-        of payments but produce different results if the payments occur at
-        different times.
+        Two sets of payments can have the same dollar amount and the same number of payments but produce different results
+        if the payments occur at different times.
       </p>
-
       <p>
-        A payment made earlier has more time to earn interest or investment
-        returns than the same payment made later.
+        A payment made earlier has more time to earn interest or investment returns than the same payment made later.
       </p>
-
       <ul>
-        <li>
-          <strong>Beginning-of-period payments:</strong> payments occur earlier
-          and therefore generally accumulate more value when the interest rate
-          is positive.
-        </li>
-        <li>
-          <strong>End-of-period payments:</strong> payments occur later and
-          therefore have slightly less time to compound.
-        </li>
+        <li><strong>Beginning-of-period payments:</strong> payments occur earlier and therefore generally accumulate more value when the interest rate is positive.</li>
+        <li><strong>End-of-period payments:</strong> payments occur later and therefore have slightly less time to compound.</li>
       </ul>
 
       <h3>Payment Frequency and Compounding Frequency Are Different Ideas</h3>
-
       <p>
-        Payment frequency describes how often money is contributed, paid, or
-        withdrawn. Compounding frequency describes how often interest is added to
-        the balance.
+        Payment frequency describes how often money is contributed, paid, or withdrawn.
+        Compounding frequency describes how often interest is added to the balance.
       </p>
-
       <p>
-        They may be the same, but they do not have to be. For example, an account
-        may compound interest daily while deposits are made monthly.
+        They may be the same, but they do not have to be. For example, an account may compound interest daily while deposits are made monthly.
       </p>
-
       <p>
-        More frequent compounding generally increases the effective return when
-        the stated annual rate remains the same.
+        More frequent compounding generally increases the effective return when the stated annual rate remains the same.
       </p>
 
       <h3>Cash-Flow Direction Matters</h3>
-
       <p>
         TVM problems often involve money moving in opposite directions.
       </p>
-
       <ul>
-        <li>
-          With a <strong>loan</strong>, you receive money today and make payments
-          later.
-        </li>
-        <li>
-          With <strong>savings</strong>, you contribute money now or over time
-          and receive the accumulated value later.
-        </li>
-        <li>
-          With a <strong>retirement withdrawal</strong>, you may begin with an
-          accumulated balance and receive recurring payments from it over time.
-        </li>
+        <li>With a <strong>loan</strong>, you receive money today and make payments later.</li>
+        <li>With <strong>savings</strong>, you contribute money now or over time and receive the accumulated value later.</li>
+        <li>With a <strong>retirement withdrawal</strong>, you may begin with an accumulated balance and receive recurring payments from it over time.</li>
       </ul>
-
       <p>
-        This is why financial calculators distinguish between cash inflows and
-        cash outflows.
+        This is why financial calculators distinguish between cash inflows and cash outflows.
       </p>
 
       <h3>Common Cause-and-Effect Relationships</h3>
-
-      <p>
-        Holding other variables constant:
-      </p>
-
+      <p>Holding other variables constant:</p>
       <ul>
         <li><strong>More time:</strong> generally produces a higher future value.</li>
         <li><strong>Higher positive interest rate:</strong> generally produces a higher future value.</li>
@@ -230,17 +674,12 @@
         <li><strong>Higher future goal:</strong> generally increases the required present value or periodic payment.</li>
         <li><strong>Earlier payments:</strong> generally provide more time for each payment to compound.</li>
       </ul>
-
       <p>
         These relationships assume the other TVM variables remain unchanged.
       </p>
 
       <h3>TVM Is Useful for Financial Decisions</h3>
-
-      <p>
-        TVM helps answer questions such as:
-      </p>
-
+      <p>TVM helps answer questions such as:</p>
       <ul>
         <li>How much could money invested today grow in the future?</li>
         <li>How much must I save regularly to reach a financial goal?</li>
@@ -251,61 +690,49 @@
       </ul>
 
       <h3>References</h3>
-
       <p>
         Microsoft Support. <em>FV function.</em><br>
         https://support.microsoft.com/en-US/Excel/functions/fv-function
       </p>
-
       <p>
         Microsoft Support. <em>PV function.</em><br>
         https://support.microsoft.com/en-US/Excel/functions/pv-function
       </p>
-
       <p>
         Microsoft Support. <em>PMT function.</em><br>
         https://support.microsoft.com/en-US/Excel/functions/pmt-function
       </p>
-
       <p>
         Microsoft Support. <em>NPER function.</em><br>
         https://support.microsoft.com/en-US/Excel/functions/nper-function
       </p>
-
       <p>
-        Texas Instruments. <em>BA II Plus Guidebook and Time Value of Money
-        Worksheet documentation.</em><br>
+        Texas Instruments. <em>BA II Plus Guidebook and Time Value of Money Worksheet documentation.</em><br>
         https://education.ti.com/
       </p>
 
     </div>
   </details>
 </section>
-  <section class="card">
+
+<section class="card">
   <details>
     <summary>Mathematical Foundation &amp; Calculation Method</summary>
 
-    <div style="margin-top: 12px;">
+    <div class="details-content">
+
+      <h3>General TVM Equation</h3>
       <p>
-        This calculator is based on the standard time value of money equation
-        used in financial mathematics:
+        This calculator is based on the standard time value of money relationship used in financial mathematics.
+        For end-of-period payments:
       </p>
 
-      <p style="text-align:center; font-size:1.1rem;">
-        <strong>
-          PV(1+i)<sup>N</sup>
-          + PMT[((1+i)<sup>N</sup> - 1) / i]
-          + FV = 0
-        </strong>
-      </p>
-
-      <p>
-        For beginning-of-period payments, the payment term is multiplied by
-        <strong>(1+i)</strong>.
+      <p class="formula">
+        PV(1+i)<sup>N</sup> + PMT[((1+i)<sup>N</sup> - 1) / i] + FV = 0
       </p>
 
       <p>
-        Where:
+        For beginning-of-period payments, the recurring payment term is multiplied by <strong>(1+i)</strong>.
       </p>
 
       <ul>
@@ -316,34 +743,27 @@
         <li><strong>N</strong> = total number of payment periods</li>
       </ul>
 
+      <h3>Cash-Flow Sign Convention</h3>
       <p>
-        Cash received is treated as positive, while cash paid or invested is
-        treated as negative. This is the same underlying cash-flow convention
-        commonly used by Microsoft Excel financial functions and the Texas
-        Instruments BA II Plus.
+        The underlying calculation treats cash received as positive and cash paid or invested as negative.
+        The student interface asks for positive dollar amounts and applies the sign internally based on the selected cash-flow direction.
       </p>
 
       <h3>Interest Rate Conversion</h3>
-
       <p>
-        When compounding frequency and payment frequency differ, the calculator
-        first determines the effective annual rate:
+        When compounding frequency and payment frequency differ, the calculator first determines the effective annual rate:
       </p>
 
-      <p style="text-align:center;">
-        <strong>
-          EAR = (1 + j/m)<sup>m</sup> - 1
-        </strong>
+      <p class="formula">
+        EAR = (1 + j/m)<sup>m</sup> - 1
       </p>
 
       <p>
         It then converts that rate to the equivalent rate per payment period:
       </p>
 
-      <p style="text-align:center;">
-        <strong>
-          i = (1 + EAR)<sup>1/p</sup> - 1
-        </strong>
+      <p class="formula">
+        i = (1 + EAR)<sup>1/p</sup> - 1
       </p>
 
       <ul>
@@ -353,65 +773,566 @@
       </ul>
 
       <h3>Interest Rate and Number of Periods</h3>
-
       <p>
-        When solving for interest rate or number of periods, the calculator
-        numerically solves the general TVM equation rather than relying on a
-        simplified formula. This allows the same framework to be used for
-        lump-sum, loan, savings, and annuity problems.
+        When interest rate or number of periods is the unknown, the calculator numerically solves the general TVM equation.
+        The classroom RATE solver searches for a single nonnegative solution and reports an error when no such solution,
+        or more than one such solution, is found.
       </p>
 
       <h3>Daily Compounding</h3>
-
       <p>
         Daily compounding assumes <strong>365 compounding periods per year</strong>.
-        Some real-world financial products use different day-count conventions,
-        so product-specific disclosures should be consulted for actual financial
-        decisions.
+        Some real-world financial products use different day-count conventions, so product-specific disclosures should be consulted for actual financial decisions.
       </p>
 
       <h3>Zero-Interest Cases</h3>
-
       <p>
-        When the periodic interest rate is zero, the calculator treats the
-        annuity factor as the number of periods, avoiding division by zero.
+        When the periodic interest rate is zero, the calculator treats the annuity factor as the number of periods,
+        avoiding division by zero.
       </p>
 
+    </div>
+  </details>
+</section>
+
+<section class="card">
+  <details>
+    <summary>Sources &amp; Methodology</summary>
+
+    <div class="details-content">
       <p>
-        These formulas are intended to follow standard TVM conventions and to
-        produce results consistent with common financial-calculation approaches
-        when equivalent inputs, timing, frequencies, and cash-flow directions
-        are used.
+        The terminology, variable definitions, cash-flow conventions, payment-timing conventions,
+        and TVM calculation structure used in this calculator are based on standard time value of money
+        practices documented by Microsoft Excel financial functions and the Texas Instruments BA II Plus financial calculator.
+        Student-facing explanations have been simplified for instructional use in PFI 3301.
+      </p>
+
+      <h3>Microsoft Support</h3>
+      <p>
+        FV function<br>
+        https://support.microsoft.com/en-US/Excel/functions/fv-function
+      </p>
+      <p>
+        PV function<br>
+        https://support.microsoft.com/en-US/Excel/functions/pv-function
+      </p>
+      <p>
+        PMT function<br>
+        https://support.microsoft.com/en-US/Excel/functions/pmt-function
+      </p>
+      <p>
+        NPER function<br>
+        https://support.microsoft.com/en-US/Excel/functions/nper-function
+      </p>
+      <p>
+        RATE function<br>
+        https://support.microsoft.com/en-US/Excel/functions/rate-function
+      </p>
+
+      <h3>Texas Instruments</h3>
+      <p>
+        BA II Plus financial-calculator documentation and time value of money worksheet guidance<br>
+        https://education.ti.com/
       </p>
     </div>
   </details>
 </section>
+
 <section class="card">
-<h2>Important Disclosures and Limitations</h2>
-<ul>
-<li><strong>Classroom and educational use:</strong> This tool is intended for instructional practice and course-related learning. It is not a substitute for professional judgment or personalized advice.</li>
-<li><strong>Software limitation:</strong> Although the calculator has been tested against standard TVM conventions, software can contain errors. If a result appears unreasonable, recheck the inputs and independently verify the calculation.</li>
-<li><strong>Privacy:</strong> Calculations are performed locally in your browser. This page does not require an account and does not intentionally save or transmit the financial values you enter. Avoid entering sensitive personal information because it is unnecessary for using the tool.</li>
-<li><strong>Course use:</strong> Your instructor may specify particular assumptions, conventions, rounding rules, or required methods. Course instructions control when they differ from this tool's default behavior.</li>
-</ul>
+  <details>
+    <summary>Important Disclosures &amp; Limitations</summary>
+
+    <div class="details-content">
+      <ul>
+        <li>
+          <strong>Classroom and educational use:</strong>
+          This tool is intended for instructional practice and course-related learning.
+          It is not a substitute for professional judgment or personalized advice.
+        </li>
+        <li>
+          <strong>No financial or investment advice:</strong>
+          Results are illustrative and should not be interpreted as a recommendation to borrow, lend, save,
+          invest, buy, sell, refinance, or enter into any financial transaction.
+        </li>
+        <li>
+          <strong>No legal, tax, or accounting advice:</strong>
+          The calculator does not evaluate laws, regulations, taxes, contracts, filing requirements,
+          accounting rules, or the legal consequences of a transaction.
+        </li>
+        <li>
+          <strong>Assumptions matter:</strong>
+          TVM results depend entirely on the values and assumptions entered, including interest rate,
+          timing, compounding, payment frequency, and cash-flow direction.
+          Real-world products may use conventions, fees, rates, day-count methods, taxes, penalties,
+          or other terms not represented here.
+        </li>
+        <li>
+          <strong>Verify important calculations:</strong>
+          For graded work, follow course instructions.
+          For real-world decisions, confirm calculations and product terms using authoritative sources,
+          official disclosures, or an appropriately qualified professional.
+        </li>
+        <li>
+          <strong>Not a lender or product quote:</strong>
+          Output is not an offer, approval, disclosure, APR quote, investment projection,
+          guarantee, or representation of future performance.
+        </li>
+        <li>
+          <strong>No guarantee of outcomes:</strong>
+          Investment returns, interest rates, inflation, fees, taxes, and other real-world conditions can change.
+          Hypothetical results do not guarantee future results.
+        </li>
+        <li>
+          <strong>Software limitation:</strong>
+          Although the calculator has been tested against standard TVM conventions, software can contain errors.
+          If a result appears unreasonable, recheck the inputs and independently verify the calculation.
+        </li>
+        <li>
+          <strong>Privacy:</strong>
+          Calculations are performed locally in your browser.
+          This page does not require an account and does not intentionally save or transmit the financial values you enter.
+          Avoid entering sensitive personal information because it is unnecessary for using the tool.
+        </li>
+        <li>
+          <strong>Course use:</strong>
+          Your instructor may specify particular assumptions, conventions, rounding rules, or required methods.
+          Course instructions control when they differ from this tool's default behavior.
+        </li>
+      </ul>
+    </div>
+  </details>
 </section>
+
 <footer>
-<p><strong>PFI 3301 TVM Calculator • Version 1.0 • September 2026</strong></p>
-<p>Developed for instructional use in Personal Financial Planning coursework at Texas Tech University. Educational use only. Not financial, investment, tax, accounting, or legal advice.</p>
-<p>Bookmark this page for quick access throughout the course.</p>
+  <p><strong>PFI 3301 TVM Calculator • Version 1.0 • September 2026</strong></p>
+  <p>
+    Developed for instructional use in Personal Financial Planning coursework at Texas Tech University.
+    Educational use only. Not financial, investment, tax, accounting, or legal advice.
+  </p>
+  <p>Bookmark this page for quick access throughout the course.</p>
 </footer>
+
 </main>
+
 <script>
-(()=>{const $=id=>document.getElementById(id),ids=['solve','pv','pvDir','fv','fvDir','pmt','pmtDir','rate','years','comp','pay','timing'];
-const num=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)?v:0},entered=id=>$(id).value.trim()!=='',signed=(id,d)=>num(id)*parseInt($(d).value,10),money=x=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Math.abs(x)),flow=x=>x>=0?'Money I Receive':'Money I Pay / Invest';
-function af(r,n,b){if(n<=0)return 0;if(Math.abs(r)<1e-14)return n;let a=(Math.pow(1+r,n)-1)/r;return b?a*(1+r):a}function eq(pv,fv,pmt,r,n,b){return pv*Math.pow(1+r,n)+pmt*af(r,n,b)+fv}function pr(nom,c,p){const ear=Math.pow(1+nom/c,c)-1;return Math.pow(1+ear,1/p)-1}function nominal(r,p,c){const ear=Math.pow(1+r,p)-1;return c*(Math.pow(1+ear,1/c)-1)}
-function bisect(fn,lo,hi){let fl=fn(lo),fh=fn(hi);if(!Number.isFinite(fl)||!Number.isFinite(fh)||fl*fh>0)return null;for(let i=0;i<180;i++){const m=(lo+hi)/2,fm=fn(m);if(!Number.isFinite(fm))return null;if(Math.abs(fm)<1e-10)return m;if(fl*fm<=0){hi=m;fh=fm}else{lo=m;fl=fm}}return(lo+hi)/2}
-function rateRoots(pv,fv,pmt,n,b){const fn=r=>eq(pv,fv,pmt,r,n,b),pts=[0],roots=[];for(let i=1;i<=350;i++)pts.push(i/350*.25);for(let i=1;i<=350;i++)pts.push(.25*Math.pow(40,i/350));pts.sort((a,b)=>a-b);for(let i=0;i<pts.length-1;i++){const a=pts[i],c=pts[i+1],fa=fn(a),fc=fn(c);if(Number.isFinite(fa)&&Math.abs(fa)<1e-8)roots.push(a);if(Number.isFinite(fa)&&Number.isFinite(fc)&&fa*fc<0){const r=bisect(fn,a,c);if(r!==null)roots.push(r)}}const u=[];for(const r of roots)if(!u.some(x=>Math.abs(x-r)<1e-7))u.push(r);return u}
-function solveN(pv,fv,pmt,r,b){const fn=n=>eq(pv,fv,pmt,r,n,b);let lo=0,hi=1,fl=fn(lo),fh=fn(hi);while(Number.isFinite(fh)&&fl*fh>0&&hi<100000){hi*=2;fh=fn(hi)}if(!Number.isFinite(fh)||fl*fh>0)return null;return bisect(fn,lo,hi)}function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`}
-function update(){const s=$('solve').value;['pv','pvDir','fv','fvDir','pmt','pmtDir','rate','years'].forEach(id=>$(id).disabled=false);const help={'':'Choose the variable you want to solve for.',fv:'Enter PV, PMT, interest rate, and time. FV will be calculated.',pv:'Enter FV, PMT, interest rate, and time. PV will be calculated.',pmt:'Enter PV, FV, interest rate, and time. PMT will be calculated.',rate:'Enter PV, FV, PMT, and time. The annual interest rate will be calculated.',nper:'Enter PV, FV, PMT, and interest rate. The number of payment periods will be calculated.'};$('solveHelp').textContent=help[s];const map={fv:['fv','fvDir'],pv:['pv','pvDir'],pmt:['pmt','pmtDir'],rate:['rate'],nper:['years']};if(map[s])map[s].forEach(id=>$(id).disabled=true);$('results').classList.add('hidden');$('message').textContent=''}
-$('solve').addEventListener('change',update);$('clear').addEventListener('click',()=>{ids.forEach(id=>$(id).value='');$('message').textContent='';$('answer').textContent='';$('direction').textContent='';$('meaning').textContent='';$('details').innerHTML='';$('equiv').innerHTML='';$('results').classList.add('hidden');update();$('solve').focus()});
-$('calc').addEventListener('click',()=>{const s=$('solve').value;$('message').textContent='';$('results').classList.add('hidden');if(!s){$('message').textContent='Select the variable you want to solve for.';return}if(!$('comp').value||!$('pay').value||$('timing').value===''){$('message').textContent='Select compounding frequency, payment frequency, and payment timing.';return}const vals=[];if(s!=='pv')vals.push('pv');if(s!=='fv')vals.push('fv');if(s!=='pmt')vals.push('pmt');if(s!=='rate')vals.push('rate');if(s!=='nper')vals.push('years');if(vals.some(id=>!entered(id))){$('message').textContent='Complete all required numeric fields. Enter 0 when a known TVM variable is zero.';return}const dirs=[];if(s!=='pv'&&num('pv')!==0)dirs.push('pvDir');if(s!=='fv'&&num('fv')!==0)dirs.push('fvDir');if(s!=='pmt'&&num('pmt')!==0)dirs.push('pmtDir');if(dirs.some(id=>!$(id).value)){$('message').textContent='Choose a cash-flow direction for each nonzero known cash flow.';return}
-const c=parseInt($('comp').value,10),p=parseInt($('pay').value,10),b=$('timing').value==='1',nom=num('rate')/100,yrs=num('years');if(s!=='nper'&&yrs<=0){$('message').textContent='Years must be greater than zero.';return}let pv=s==='pv'?0:(num('pv')===0?0:signed('pv','pvDir')),fv=s==='fv'?0:(num('fv')===0?0:signed('fv','fvDir')),pmt=s==='pmt'?0:(num('pmt')===0?0:signed('pmt','pmtDir')),n=yrs*p,r=s==='rate'?0:pr(nom,c,p),res=null,meaning='',direction='';
-if(s==='fv'){res=-(pv*Math.pow(1+r,n)+pmt*af(r,n,b));fv=res;direction=flow(res);meaning=`The future cash flow is approximately ${money(res)}. This represents ${direction.toLowerCase()} at the end of the stated time horizon.`}else if(s==='pv'){res=-(fv+pmt*af(r,n,b))/Math.pow(1+r,n);pv=res;direction=flow(res);meaning=`The present cash flow is approximately ${money(res)}. This represents ${direction.toLowerCase()} today.`}else if(s==='pmt'){const a=af(r,n,b);if(Math.abs(a)<1e-14){$('message').textContent='A periodic payment cannot be calculated from these inputs.';return}res=-(fv+pv*Math.pow(1+r,n))/a;pmt=res;direction=flow(res);meaning=`The recurring payment is approximately ${money(res)} each payment period. This represents ${direction.toLowerCase()}.`}else if(s==='rate'){const roots=rateRoots(pv,fv,pmt,n,b);if(roots.length===0){$('message').textContent='No nonnegative interest-rate solution was found. Check amounts, cash-flow directions, and timing.';return}if(roots.length>1){$('message').textContent='These cash flows produce more than one nonnegative interest-rate solution. Verify the problem setup.';return}r=roots[0];res=nominal(r,p,c);meaning=`The implied nominal annual interest rate is approximately ${(res*100).toFixed(4)}%, using the selected compounding convention.`}else{res=solveN(pv,fv,pmt,r,b);if(res===null){$('message').textContent='No positive number-of-periods solution was found. Check whether the stated goal can be reached.';return}n=res;meaning=`It will take approximately ${res.toFixed(2)} payment periods, or ${(res/p).toFixed(2)} years.`}
-if(!Number.isFinite(res)){$('message').textContent='These inputs do not produce a usable TVM result.';return}if(s==='rate'){$('answer').textContent=`Annual Interest Rate: ${(res*100).toFixed(4)}%`;$('direction').textContent='Nominal annual rate using the selected compounding convention'}else if(s==='nper'){$('answer').textContent=`Number of Periods: ${res.toFixed(2)}`;$('direction').textContent=`Equivalent time: ${(res/p).toFixed(2)} years`}else{const names={fv:'Future Value',pv:'Present Value',pmt:'Periodic Payment'};$('answer').textContent=`${names[s]}: ${money(res)}`;$('direction').textContent=direction}$('meaning').textContent=meaning;const shownAnnual=s==='rate'?res:nom,shownPeriodic=s==='rate'?r:pr(nom,c,p),flowMetric=(k,x)=>metric(k,`${money(x)} • ${x===0?'Zero cash flow':flow(x)}`);$('details').innerHTML=flowMetric('PV',pv)+flowMetric('FV',fv)+flowMetric('PMT',pmt)+metric('Nominal Annual Rate',`${(shownAnnual*100).toFixed(4)}%`)+metric('Rate per Payment Period',`${(shownPeriodic*100).toFixed(6)}%`)+metric('Payment Periods',n.toFixed(2))+metric('Compounding',c===365?'Daily (365/year)':`${c} per year`)+metric('Payments',`${p} per year`)+metric('Timing',b?'BEGIN':'END');const type=b?1:0;let excel='';if(s==='fv')excel=`=FV(periodic_rate, ${n.toFixed(2)}, PMT, PV, ${type})`;if(s==='pv')excel=`=PV(periodic_rate, ${n.toFixed(2)}, PMT, FV, ${type})`;if(s==='pmt')excel=`=PMT(periodic_rate, ${n.toFixed(2)}, PV, FV, ${type})`;if(s==='rate')excel=`=RATE(${n.toFixed(2)}, PMT, PV, FV, ${type}) and then convert the periodic rate to the selected annual convention`;if(s==='nper')excel=`=NPER(periodic_rate, PMT, PV, FV, ${type})`;$('equiv').innerHTML=`<p><strong>Excel:</strong> ${excel}</p><p><strong>BA II Plus:</strong> Enter cash received as positive and cash paid/invested as negative. Set P/Y=${p}, C/Y=${c}, select ${b?'BGN':'END'}, then compute the unknown TVM variable.</p>`;$('results').classList.remove('hidden');$('results').scrollIntoView({behavior:'smooth',block:'start'})});update()})();
-</script></body></html>
+(() => {
+  const $ = id => document.getElementById(id);
+  const ids = ['solve','pv','pvDir','fv','fvDir','pmt','pmtDir','rate','years','comp','pay','timing'];
+
+  function num(id){
+    const v = parseFloat($(id).value);
+    return Number.isFinite(v) ? v : 0;
+  }
+
+  function entered(id){
+    return $(id).value.trim() !== '';
+  }
+
+  function signed(id, dir){
+    return num(id) * parseInt($(dir).value,10);
+  }
+
+  function money(x){
+    return new Intl.NumberFormat('en-US',{
+      style:'currency',
+      currency:'USD',
+      maximumFractionDigits:2
+    }).format(Math.abs(x));
+  }
+
+  function flowText(x){
+    return x >= 0 ? 'Money I Receive' : 'Money I Pay / Invest';
+  }
+
+  function annuityFactor(r,n,begin){
+    if(n <= 0) return 0;
+    if(Math.abs(r) < 1e-14) return n;
+
+    let a = (Math.pow(1+r,n)-1)/r;
+
+    if(begin){
+      a *= (1+r);
+    }
+
+    return a;
+  }
+
+  function equation(pv,fv,pmt,r,n,begin){
+    return pv*Math.pow(1+r,n) + pmt*annuityFactor(r,n,begin) + fv;
+  }
+
+  function periodicRate(nominalAnnual, compPerYear, payPerYear){
+    const ear = Math.pow(1 + nominalAnnual/compPerYear, compPerYear) - 1;
+    return Math.pow(1 + ear, 1/payPerYear) - 1;
+  }
+
+  function nominalFromPaymentRate(r, payPerYear, compPerYear){
+    const ear = Math.pow(1+r,payPerYear)-1;
+    return compPerYear * (Math.pow(1+ear,1/compPerYear)-1);
+  }
+
+  function bisect(fn, lo, hi, maxIter=180){
+    let flo = fn(lo);
+    let fhi = fn(hi);
+
+    if(!Number.isFinite(flo) || !Number.isFinite(fhi) || flo*fhi > 0){
+      return null;
+    }
+
+    for(let i=0; i<maxIter; i++){
+      const mid = (lo+hi)/2;
+      const fm = fn(mid);
+
+      if(!Number.isFinite(fm)){
+        return null;
+      }
+
+      if(Math.abs(fm) < 1e-10){
+        return mid;
+      }
+
+      if(flo*fm <= 0){
+        hi = mid;
+        fhi = fm;
+      } else {
+        lo = mid;
+        flo = fm;
+      }
+    }
+
+    return (lo+hi)/2;
+  }
+
+  function findNonnegativeRateRoots(pv,fv,pmt,n,begin){
+    const fn = r => equation(pv,fv,pmt,r,n,begin);
+
+    const pts = [0];
+
+    for(let i=1; i<=350; i++){
+      pts.push(i/350*0.25);
+    }
+
+    for(let i=1; i<=350; i++){
+      pts.push(0.25*Math.pow(40,i/350));
+    }
+
+    pts.sort((a,b)=>a-b);
+
+    const roots=[];
+
+    for(let i=0; i<pts.length-1; i++){
+      const a=pts[i];
+      const b=pts[i+1];
+      const fa=fn(a);
+      const fb=fn(b);
+
+      if(Number.isFinite(fa) && Math.abs(fa)<1e-8){
+        roots.push(a);
+      }
+
+      if(Number.isFinite(fa) && Number.isFinite(fb) && fa*fb<0){
+        const r=bisect(fn,a,b);
+
+        if(r!==null){
+          roots.push(r);
+        }
+      }
+    }
+
+    const unique=[];
+
+    for(const r of roots){
+      if(!unique.some(x=>Math.abs(x-r)<1e-7)){
+        unique.push(r);
+      }
+    }
+
+    return unique;
+  }
+
+  function solvePeriods(pv,fv,pmt,r,begin){
+    const fn = n => equation(pv,fv,pmt,r,n,begin);
+
+    let lo=0;
+    let hi=1;
+    let flo=fn(lo);
+    let fhi=fn(hi);
+
+    while(Number.isFinite(fhi) && flo*fhi>0 && hi<100000){
+      hi*=2;
+      fhi=fn(hi);
+    }
+
+    if(!Number.isFinite(fhi) || flo*fhi>0){
+      return null;
+    }
+
+    return bisect(fn,lo,hi);
+  }
+
+  function metric(k,v){
+    return `<div class="metric">
+      <div class="k">${k}</div>
+      <div class="v">${v}</div>
+    </div>`;
+  }
+
+  function disableForSolve(){
+    const s=$('solve').value;
+
+    ['pv','pvDir','fv','fvDir','pmt','pmtDir','rate','years'].forEach(id=>{
+      $(id).disabled=false;
+    });
+
+    const help={
+      '':'Choose the variable you want to solve for.',
+      fv:'Enter PV, PMT, interest rate, and time. FV will be calculated.',
+      pv:'Enter FV, PMT, interest rate, and time. PV will be calculated.',
+      pmt:'Enter PV, FV, interest rate, and time. PMT will be calculated.',
+      rate:'Enter PV, FV, PMT, and time. The annual interest rate will be calculated.',
+      nper:'Enter PV, FV, PMT, and interest rate. The number of payment periods will be calculated.'
+    };
+
+    $('solveHelp').textContent=help[s];
+
+    const map={
+      fv:['fv','fvDir'],
+      pv:['pv','pvDir'],
+      pmt:['pmt','pmtDir'],
+      rate:['rate'],
+      nper:['years']
+    };
+
+    if(map[s]){
+      map[s].forEach(id=>$(id).disabled=true);
+    }
+
+    $('results').classList.add('hidden');
+    $('message').textContent='';
+  }
+
+  $('solve').addEventListener('change',disableForSolve);
+
+  $('clear').addEventListener('click',()=>{
+    ids.forEach(id=>$(id).value='');
+
+    $('message').textContent='';
+    $('answer').textContent='';
+    $('direction').textContent='';
+    $('meaning').textContent='';
+    $('details').innerHTML='';
+    $('equiv').innerHTML='';
+    $('results').classList.add('hidden');
+
+    disableForSolve();
+    $('solve').focus();
+  });
+
+  $('calc').addEventListener('click',()=>{
+    const s=$('solve').value;
+
+    $('message').textContent='';
+    $('results').classList.add('hidden');
+
+    if(!s){
+      $('message').textContent='Select the variable you want to solve for.';
+      return;
+    }
+
+    if(!$('comp').value || !$('pay').value || $('timing').value===''){
+      $('message').textContent='Select compounding frequency, payment frequency, and payment timing.';
+      return;
+    }
+
+    const knownVals=[];
+
+    if(s!=='pv') knownVals.push('pv');
+    if(s!=='fv') knownVals.push('fv');
+    if(s!=='pmt') knownVals.push('pmt');
+    if(s!=='rate') knownVals.push('rate');
+    if(s!=='nper') knownVals.push('years');
+
+    if(knownVals.some(id=>!entered(id))){
+      $('message').textContent='Complete all required numeric fields. Enter 0 when a known TVM variable is zero.';
+      return;
+    }
+
+    const knownDirs=[];
+
+    if(s!=='pv' && num('pv')!==0) knownDirs.push('pvDir');
+    if(s!=='fv' && num('fv')!==0) knownDirs.push('fvDir');
+    if(s!=='pmt' && num('pmt')!==0) knownDirs.push('pmtDir');
+
+    if(knownDirs.some(id=>!$(id).value)){
+      $('message').textContent='Choose a cash-flow direction for each nonzero known cash flow.';
+      return;
+    }
+
+    const comp=parseInt($('comp').value,10);
+    const pay=parseInt($('pay').value,10);
+    const begin=$('timing').value==='1';
+    const nominal=num('rate')/100;
+    const years=num('years');
+
+    if(s!=='nper' && years<=0){
+      $('message').textContent='Years must be greater than zero.';
+      return;
+    }
+
+    if(s!=='rate' && nominal<0){
+      $('message').textContent='Interest rate must be zero or greater.';
+      return;
+    }
+
+    let pv = s==='pv' ? 0 : (num('pv')===0 ? 0 : signed('pv','pvDir'));
+    let fv = s==='fv' ? 0 : (num('fv')===0 ? 0 : signed('fv','fvDir'));
+    let pmt = s==='pmt' ? 0 : (num('pmt')===0 ? 0 : signed('pmt','pmtDir'));
+
+    let n = years*pay;
+    let r = s==='rate' ? 0 : periodicRate(nominal,comp,pay);
+    let result=null;
+    let meaning='';
+    let direction='';
+
+    if(s==='fv'){
+      result = -(pv*Math.pow(1+r,n) + pmt*annuityFactor(r,n,begin));
+      fv=result;
+      direction=flowText(result);
+      meaning=`The future cash flow is approximately ${money(result)}. This represents ${direction.toLowerCase()} at the end of the stated time horizon.`;
+    }
+
+    else if(s==='pv'){
+      result = -(fv + pmt*annuityFactor(r,n,begin))/Math.pow(1+r,n);
+      pv=result;
+      direction=flowText(result);
+      meaning=`The present cash flow is approximately ${money(result)}. This represents ${direction.toLowerCase()} today.`;
+    }
+
+    else if(s==='pmt'){
+      const a=annuityFactor(r,n,begin);
+
+      if(Math.abs(a)<1e-14){
+        $('message').textContent='A periodic payment cannot be calculated from these inputs.';
+        return;
+      }
+
+      result=-(fv+pv*Math.pow(1+r,n))/a;
+      pmt=result;
+      direction=flowText(result);
+      meaning=`The recurring payment is approximately ${money(result)} each payment period. This represents ${direction.toLowerCase()}.`;
+    }
+
+    else if(s==='rate'){
+      const roots=findNonnegativeRateRoots(pv,fv,pmt,n,begin);
+
+      if(roots.length===0){
+        $('message').textContent='No nonnegative interest-rate solution was found. Check amounts, cash-flow directions, and timing.';
+        return;
+      }
+
+      if(roots.length>1){
+        $('message').textContent='These cash flows produce more than one nonnegative interest-rate solution. Verify the problem setup.';
+        return;
+      }
+
+      r=roots[0];
+      result=nominalFromPaymentRate(r,pay,comp);
+      meaning=`The implied nominal annual interest rate is approximately ${(result*100).toFixed(4)}%, using the selected compounding convention.`;
+    }
+
+    else if(s==='nper'){
+      result=solvePeriods(pv,fv,pmt,r,begin);
+
+      if(result===null){
+        $('message').textContent='No positive number-of-periods solution was found. Check whether the stated goal can be reached.';
+        return;
+      }
+
+      n=result;
+      meaning=`It will take approximately ${result.toFixed(2)} payment periods, or ${(result/pay).toFixed(2)} years.`;
+    }
+
+    if(!Number.isFinite(result)){
+      $('message').textContent='These inputs do not produce a usable TVM result.';
+      return;
+    }
+
+    if(s==='rate'){
+      $('answer').textContent=`Annual Interest Rate: ${(result*100).toFixed(4)}%`;
+      $('direction').textContent='Nominal annual rate using the selected compounding convention';
+    }
+
+    else if(s==='nper'){
+      $('answer').textContent=`Number of Periods: ${result.toFixed(2)}`;
+      $('direction').textContent=`Equivalent time: ${(result/pay).toFixed(2)} years`;
+    }
+
+    else{
+      const names={
+        fv:'Future Value',
+        pv:'Present Value',
+        pmt:'Periodic Payment'
+      };
+
+      $('answer').textContent=`${names[s]}: ${money(result)}`;
+      $('direction').textContent=direction;
+    }
+
+    $('meaning').textContent=meaning;
+
+    const shownAnnual=s==='rate'?result:nominal;
+    const shownPeriodic=s==='rate'?r:periodicRate(nominal,comp,pay);
+
+    const flowMetric=(label,x)=>metric(
+      label,
+      `${money(x)} • ${x===0?'Zero cash flow':flowText(x)}`
+    );
+
+    $('details').innerHTML =
+      flowMetric('PV',pv)+
+      flowMetric('FV',fv)+
+      flowMetric('PMT',pmt)+
+      metric('Nominal Annual Rate',`${(shownAnnual*100).toFixed(4)}%`)+
+      metric('Rate per Payment Period',`${(shownPeriodic*100).toFixed(6)}%`)+
+      metric('Payment Periods',n.toFixed(2))+
+      metric('Compounding',comp===365?'Daily (365/year)':`${comp} per year`)+
+      metric('Payments',`${pay} per year`)+
+      metric('Timing',begin?'BEGIN':'END');
+
+    const type=begin?1:0;
+    let excel='';
+
+    if(s==='fv'){
+      excel=`=FV(periodic_rate, ${n.toFixed(2)}, PMT, PV, ${type})`;
+    }
+
+    if(s==='pv'){
+      excel=`=PV(periodic_rate, ${n.toFixed(2)}, PMT, FV, ${type})`;
+    }
+
+    if(s==='pmt'){
+      excel=`=PMT(periodic_rate, ${n.toFixed(2)}, PV, FV, ${type})`;
+    }
+
+    if(s==='rate'){
+      excel=`=RATE(${n.toFixed(2)}, PMT, PV, FV, ${type}) and then convert the periodic rate to the selected annual convention`;
+    }
+
+    if(s==='nper'){
+      excel=`=NPER(periodic_rate, PMT, PV, FV, ${type})`;
+    }
+
+    $('equiv').innerHTML =
+      `<p><strong>Excel:</strong> ${excel}</p>`+
+      `<p><strong>BA II Plus:</strong> Enter cash received as positive and cash paid/invested as negative. Set P/Y=${pay}, C/Y=${comp}, select ${begin?'BGN':'END'}, then compute the unknown TVM variable.</p>`;
+
+    $('results').classList.remove('hidden');
+    $('results').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  disableForSolve();
+})();
+</script>
+
+</body>
+</html>
