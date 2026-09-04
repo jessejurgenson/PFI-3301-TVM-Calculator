@@ -24,6 +24,111 @@
 <label>Payment Timing<select id="timing"><option value="">Select...</option><option value="0">END • end of period</option><option value="1">BEGIN • beginning of period</option></select></label>
 </div><p class="help"><strong>BEGIN:</strong> first recurring payment happens today. <strong>END:</strong> first recurring payment happens one payment period from today.</p><div class="actions"><button id="calc" class="primary" type="button">Calculate</button><button id="clear" class="secondary" type="button">Clear All</button></div><div id="message" class="error" role="alert" aria-live="polite"></div></section>
 <section id="results" class="card hidden" aria-live="polite"><div class="muted">Answer</div><div id="answer" class="answer"></div><div id="direction" class="muted"></div><div class="notice" style="margin-top:14px"><strong>What this means</strong><div id="meaning" style="margin-top:4px"></div></div><h3>Calculation Setup</h3><div id="details" class="metrics"></div><details style="margin-top:14px"><summary><strong>Excel and BA II Plus equivalent setup</strong></summary><div id="equiv" style="margin-top:10px"></div></details></section>
+  <section class="card">
+  <details>
+    <summary>Mathematical Foundation &amp; Calculation Method</summary>
+
+    <div style="margin-top: 12px;">
+      <p>
+        This calculator is based on the standard time value of money equation
+        used in financial mathematics:
+      </p>
+
+      <p style="text-align:center; font-size:1.1rem;">
+        <strong>
+          PV(1+i)<sup>N</sup>
+          + PMT[((1+i)<sup>N</sup> - 1) / i]
+          + FV = 0
+        </strong>
+      </p>
+
+      <p>
+        For beginning-of-period payments, the payment term is multiplied by
+        <strong>(1+i)</strong>.
+      </p>
+
+      <p>
+        Where:
+      </p>
+
+      <ul>
+        <li><strong>PV</strong> = present value</li>
+        <li><strong>FV</strong> = future value</li>
+        <li><strong>PMT</strong> = recurring payment</li>
+        <li><strong>i</strong> = interest rate per payment period</li>
+        <li><strong>N</strong> = total number of payment periods</li>
+      </ul>
+
+      <p>
+        Cash received is treated as positive, while cash paid or invested is
+        treated as negative. This is the same underlying cash-flow convention
+        commonly used by Microsoft Excel financial functions and the Texas
+        Instruments BA II Plus.
+      </p>
+
+      <h3>Interest Rate Conversion</h3>
+
+      <p>
+        When compounding frequency and payment frequency differ, the calculator
+        first determines the effective annual rate:
+      </p>
+
+      <p style="text-align:center;">
+        <strong>
+          EAR = (1 + j/m)<sup>m</sup> - 1
+        </strong>
+      </p>
+
+      <p>
+        It then converts that rate to the equivalent rate per payment period:
+      </p>
+
+      <p style="text-align:center;">
+        <strong>
+          i = (1 + EAR)<sup>1/p</sup> - 1
+        </strong>
+      </p>
+
+      <ul>
+        <li><strong>j</strong> = nominal annual interest rate</li>
+        <li><strong>m</strong> = compounding periods per year</li>
+        <li><strong>p</strong> = payment periods per year</li>
+      </ul>
+
+      <h3>Interest Rate and Number of Periods</h3>
+
+      <p>
+        When solving for interest rate or number of periods, the calculator
+        numerically solves the general TVM equation rather than relying on a
+        simplified formula. This allows the same framework to be used for
+        lump-sum, loan, savings, and annuity problems.
+      </p>
+
+      <h3>Daily Compounding</h3>
+
+      <p>
+        Daily compounding assumes <strong>365 compounding periods per year</strong>.
+        Some real-world financial products use different day-count conventions,
+        so product-specific disclosures should be consulted for actual financial
+        decisions.
+      </p>
+
+      <h3>Zero-Interest Cases</h3>
+
+      <p>
+        When the periodic interest rate is zero, the calculator treats the
+        annuity factor as the number of periods, avoiding division by zero.
+      </p>
+
+      <p>
+        These formulas are intended to follow standard TVM conventions and to
+        produce results consistent with common financial-calculation approaches
+        when equivalent inputs, timing, frequencies, and cash-flow directions
+        are used.
+      </p>
+    </div>
+  </details>
+</section>
 <section class="card">
 <h2>Important Disclosures and Limitations</h2>
 <ul>
